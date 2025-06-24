@@ -1,0 +1,111 @@
+/* src/components/CountDown.css */
+.timer-card {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+.timer-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.timer-card .card-title {
+  margin-bottom: 0;
+}
+
+.timer-card .card-text {
+  margin-top: 4px;
+  font-family: "Sofia Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 10%;
+  vertical-align: middle;
+}
+
+.cap-text {
+  font-family: "Sofia Sans", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 10%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* in CountDown.css (or your main stylesheet) */
+.hero-subtext {
+  font-family: "Sofia Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px; /* 100% of 14px */
+  letter-spacing: 0.1em; /* 10% */
+  text-align: left;
+  vertical-align: middle;
+  margin-bottom: 1.5rem; /* matches Bootstrap’s mb-4 */
+}
+
+.hero-highlight {
+  color: #ffca28; /* your “warning” yellow */
+  /* inherits the same font-family, weight, size, etc. */
+}
+
+/* in CountDown.css (or your global stylesheet) */
+.login-btn {
+  /* match Figma: Sofia Sans, 600, 14-16px, 10%+ letter-spacing */
+  font-family: "Sofia Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  color: #000 !important; /* ensure it’s black */
+  padding: 0.25rem 0; /* optional: small vertical padding */
+  background: none;
+  border: none;
+  text-decoration: none;
+}
+
+.login-btn:hover,
+.login-btn:focus {
+  text-decoration: underline; /* subtle hover effect */
+}
+
+.user-count {
+  font-family: "Sofia Sans", sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing:0.1rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+@media (max-width: 576px) {
+  .timer-card {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+  }
+  .hero-subtext {
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.1em;
+    vertical-align: middle;
+    margin-bottom: 1.5rem;
+  }
+  .display-4 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.5rem !important;
+  }
+  .fs-4 {
+    font-size: 1.25rem !important;
+  }
+}

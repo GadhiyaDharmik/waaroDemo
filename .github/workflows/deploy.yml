@@ -1,0 +1,39 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 51.20.108.54 >> ~/.ssh/known_hosts
+
+    - name: SSH into EC2 and deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@51.20.108.54 << 'EOF'
+          cd /home/ubuntu/Waaro_Frontend || exit
+
+          # Reset local changes to avoid merge conflicts
+          git reset --hard HEAD
+          git clean -fd
+
+          # Pull latest code
+          git pull origin main
+
+          # (Optional) Run build or restart service
+          # npm install
+          # npm run build
+          # pm2 restart all
+        EOF

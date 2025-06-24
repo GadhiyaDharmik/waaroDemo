@@ -1,0 +1,137 @@
+.cartMainContainer {
+  display: flex;
+}
+
+.cartListContainer {
+  background: #fff;
+  padding: 16px 16px;
+  margin: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.cartListContainer h3 {
+  font-weight: bold;
+  padding: 15px;
+}
+
+.cartTotalContainer {
+  background: #fff;
+  padding: 16px 16px;
+  margin: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  height: max-content;
+}
+
+.cartTotalContainer h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.cartTotalContainer .subtotal,
+.cartTotalContainer .discount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.cartTotalContainer .subtotal span:first-child {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38.73px;
+  letter-spacing: 0%;
+  text-decoration: line-through;
+  color: #596476;
+}
+.cartTotalContainer .subtotal h4:last-child {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38.73px;
+  letter-spacing: 0%;
+  text-align: right;
+  color: #fff;
+  margin-right: 8px;
+}
+
+.cartTotalContainer .discount span:last-child {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 38.73px;
+  letter-spacing: 0%;
+  text-align: right;
+  color: #00d619;
+}
+
+.cartTotalContainer .coupon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.cartTotalContainer .coupon input {
+  flex: 1;
+  padding: 10px;
+  width: 40%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.cartTotalContainer .continue-btn {
+  width: 100%;
+  background: #000000;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+}
+.totalHead {
+  display: flex;
+  background: #fabb18;
+  padding: 17px 10px;
+  justify-content: space-between;
+  border-radius: 12px;
+}
+
+.totalHead div {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalHead h3 {
+  margin: 0;
+  padding: 0;
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38.73px;
+  letter-spacing: 0%;
+  color: #000;
+}
+
+.discountClass {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.discountClass h3 {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 38.73px;
+  letter-spacing: 0%;
+  color: #000;
+}
