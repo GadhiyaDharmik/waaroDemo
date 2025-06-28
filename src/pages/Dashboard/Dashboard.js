@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Dashboard.css";
 
 import { FiSearch } from "react-icons/fi";
-import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaWhatsapp, FaEye } from "react-icons/fa";
+import { IoCallOutline } from "react-icons/io5";
 
 import r1 from "../../asset/Rectangle/Rectangle 34624233.png";
 import r2 from "../../asset/Rectangle/Rectangle 34624234.png";
@@ -23,23 +24,41 @@ import user6 from "../../asset/Rectangle/User6.png";
 import user7 from "../../asset/Rectangle/User7.png";
 import user8 from "../../asset/Rectangle/User8.png";
 
-import whatsappIcon from "../../asset/Rectangle/Whatsapp.png";
-import phoneIcon from "../../asset/Rectangle/Call.png";
-
 import google from "../../asset/Rectangle/Chrome.png";
-
 import digitalbusinesscard from "../../asset/Rectangle/digital-business-card.png";
-import { FaEye } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
 
 const priceData = [
-  { period: "6 Month", price: 899, cls: "box-1" },
-  { period: "Year", price: 1499, cls: "box-2" },
+  {
+    period: "6 Month",
+    price: 899,
+    features: [
+      "Analytics",
+      "Lead / Inquiry Management",
+      "Email Campaigns",
+      "Product Listings",
+      "Product Promotions",
+      "B2B Connections",
+    ],
+  },
+  {
+    period: "Year",
+    price: 1499,
+    features: [
+      "Includes everything in the 6-month plan",
+      "Extended Analytics & Insights",
+      "Advanced Promotion Tools",
+      "Unlimited Product Listings",
+    ],
+  },
 ];
+
 const stats = [
   { label: "Connect", count: 105 },
   { label: "Product List", count: 105 },
   { label: "Post", count: 105 },
 ];
+
 const statsLabels = [
   "Connect",
   "Spread",
@@ -53,10 +72,9 @@ const statsLabels = [
 
 const avatarList = [user1, user2, user3, user4, user5, user6, user7, user8];
 
-// 3) Build your messages so that each object gets exactly one avatar
 const messages = avatarList.map((avatar, i) => ({
-  avatar, // single URL
-  company: `Company Name ${i + 1}`, // you can template in the index
+  avatar,
+  company: `Company Name ${i + 1}`,
   person: "Chetan Patel",
   category: "Category Name",
 }));
@@ -64,22 +82,66 @@ const messages = avatarList.map((avatar, i) => ({
 const gallery = [r1, r2, r3, r4, r5, r6, r7, r8];
 
 export default function Dashboard() {
+  const [selectedMessages, setSelectedMessages] = useState([]);
+  const [viewMode, setViewMode] = useState("connect");
+
+  const toggleSelect = (index) => {
+    setSelectedMessages((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
+
+  const renderMessages = () => {
+    let filteredMessages = [];
+
+    if (viewMode === "connect") {
+      filteredMessages = messages;
+    } else {
+      filteredMessages = selectedMessages.map((i) => messages[i]);
+    }
+
+    return filteredMessages.map((m, idx) => {
+      const originalIndex = messages.indexOf(m);
+      return (
+        <div
+          key={idx}
+          className={`d-flex align-items-center py-2 border-bottom ${
+            selectedMessages.includes(originalIndex) ? "bg-light" : ""
+          }`}
+          onClick={() => viewMode === "connect" && toggleSelect(originalIndex)}
+          style={{ cursor: viewMode === "connect" ? "pointer" : "default" }}
+        >
+          <img
+            src={m.avatar}
+            alt={m.company}
+            className="rounded-circle me-3"
+            style={{ width: 40, height: 40, objectFit: "cover" }}
+          />
+          <div>
+            <p className="mb-0 fw-semibold">{m.company}</p>
+            <small className="d-block">{m.person}</small>
+            <small className="text-secondary">{m.category}</small>
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="dashboard">
-      {/* HEADER */}
-      <div className="dashboard-header mb-4">
+      {/* Header */}
+      <div className="dashboard-header">
         <h1>Today</h1>
         <p>Mon 22, 2021 | 10:00 AM</p>
       </div>
 
       <div className="row gx-4">
-        {/* LEFT COLUMN */}
+        {/* Left Column */}
         <div className="col-lg-4 d-flex flex-column gap-4">
           {/* Price Card */}
-
           <div className="price-card card p-4">
             <h2 className="price-title">Price</h2>
-            <p className="price-subtitle" style={{ textAlign: "center" }}>
+            <p className="price-subtitle text-center">
               customers recommend this product
             </p>
 
@@ -96,139 +158,125 @@ export default function Dashboard() {
             </div>
 
             <div className="price-descriptions">
-              {priceData.map((_, i) => (
-                <p key={i} className="price-desc">
-                  is a long established fact that a reader will distracted
-                  readable content page when
-                </p>
+              {priceData.map((item, i) => (
+                <div
+                  key={i}
+                  className="price-desc d-flex flex-column gap-1 ps-2"
+                >
+                  {item.features.map((feature, j) => (
+                    <div
+                      key={j}
+                      className="d-flex align-items-start lh-sm"
+                      style={{ cursor: "default" }}
+                    >
+                      <span
+                        className="me-2 text-dark"
+                        style={{ lineHeight: "1.2" }}
+                      >
+                        •
+                      </span>
+                      <span className="text-dark" style={{ lineHeight: "1.4" }}>
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
 
-          {/* Bottom stats grid */}
+          {/* Stats Grid */}
           <div className="stats-grid card p-4">
             {statsLabels.map((label, i) => (
               <div key={i} className="stat-box">
-                <p className="fw-semibold">{label}</p>
-                <h5>135</h5>
-                <small className="small-text">customers recommend this product</small>
+                <p className="fw-bold">{label}</p>
+
+                {/* Number and description side-by-side like the image */}
+                <div className="d-flex align-items-start">
+                  <h5 className="fw-bold mb-0 me-2">135</h5>
+                  <small className="text-dark">
+                    Establish contact with potential clients or partners.
+                  </small>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* MIDDLE COLUMN */}
+        {/* Middle Column */}
         <div className="col-lg-4 d-flex flex-column gap-4">
-          {/* Search + Pills */}
           <div className="card no-gap p-3 flex-grow-1 d-flex flex-column">
-            {/* <div className="d-flex align-items-center gap-2"> */}
-            {/* 1️⃣ Search pill */}
+            {/* Search */}
             <div
               className="input-group px-2 mx-auto"
               style={{ maxWidth: "432px" }}
             >
               <span
                 className="input-group-text bg-white border border-secondary"
-                style={{ borderRadius: "50px 0 0 50px" }}
+                style={{ borderRadius: "20px 0 0 20px" }}
               >
-                <FiSearch className="text-secondary" />
+                <CiSearch />
               </span>
               <input
                 type="text"
                 className="form-control border border-start-0 border-secondary"
                 placeholder="Search in Message"
-                style={{ borderRadius: "0 50px 50px 0", boxShadow: "none" }}
+                style={{ borderRadius: "0 20px 20px 0", boxShadow: "none" }}
               />
             </div>
 
-            {/* 2️⃣ Buttons pill */}
+            {/* Tabs */}
             <div
-              className="d-flex align-items-center justify-content-center gap-2 rounded-pill px-2 mx-auto"
+              className="d-flex align-items-center justify-content-center gap-2 rounded-pill px-3 mx-auto mt-2"
               style={{
-                backgroundColor: "#F2F2F2",
-                marginTop: "9px",
-                maxWidth: "403px",
-                height: "51px",
-                marginLeft: "60px !important",
-                marginRight: "55px !important",
+                background: "#0000001A",
+                padding: "7px",
               }}
             >
               <button
-                className="btn rounded-pill px-3 py-1"
-                style={{
-                  backgroundColor: "#FFC107",
-                  border: "none",
-                  color: "#fff",
-                }}
+                className={`btn  px-3 py-1 ${
+                  viewMode === "connect" ? "btn-warning text-white" : ""
+                }`}
+                onClick={() => setViewMode("connect")}
               >
                 Connect
               </button>
               <button
-                className="btn rounded-pill px-3 py-1 ms-1"
-                style={{
-                  backgroundColor: "transparent",
-                  border: "none",
-                  color: "#000",
-                }}
+                className={`btn  px-3 py-1 ${
+                  viewMode === "save" ? "btn-warning text-white" : ""
+                }`}
+                onClick={() => setViewMode("save")}
               >
                 Save
               </button>
               <button
-                className="btn rounded-pill px-3 py-1 ms-1"
-                style={{
-                  backgroundColor: "transparent",
-                  border: "none",
-                  color: "#000",
-                }}
+                className={`btn  px-3 py-1 ${
+                  viewMode === "callAlerts" ? "btn-warning text-white" : ""
+                }`}
+                onClick={() => setViewMode("callAlerts")}
               >
                 Call Alerts
               </button>
             </div>
-            {/* </div> */}
 
-            {/* </div> */}
-
-            {/* Message list */}
-            <div className="message-list flex-grow-1 px-3">
-              {messages.map((m, i) => (
-                <div
-                  key={i}
-                  className="d-flex align-items-center py-2 border-bottom"
-                >
-                  <img
-                    src={m.avatar}
-                    alt={m.company}
-                    className="rounded-circle me-3"
-                    style={{ width: 40, height: 40, objectFit: "cover" }}
-                  />
-                  <div>
-                    <p className="mb-0 fw-semibold">{m.company}</p>
-                    <small className="d-block">{m.person}</small>
-                    <small className="text-secondary">{m.category}</small>
-                  </div>
-                </div>
-              ))}
+            {/* Message List */}
+            <div className="message-list flex-grow-1 px-3 mt-3">
+              {renderMessages()}
             </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN */}
+        {/* Right Column */}
         <div className="col-lg-4 d-flex flex-column gap-4">
-          {/* Ad Card */}
-
           <div className="business-card">
-            {/* Banner + mockup */}
             <div className="banner-container">
               <img
                 src={digitalbusinesscard}
                 alt="banner"
                 className="banner-img"
               />
-
-              {/* <img src={cardMockup} alt="" className="mockup-img" /> */}
             </div>
 
-            {/* Unified info row */}
             <div className="info-row">
               <img src={google} alt="Company Logo" className="company-logo" />
               <div className="info-text">
@@ -244,23 +292,21 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Mini stats + icons */}
-          <div className="mini-stats">
-            <div className="stats-items">
+          <div className="mini-stats d-flex justify-content-between align-items-center">
+            <div className="stats-items d-flex gap-4">
               {stats.map((s, i) => (
-                <div key={i} className="stat-item">
-                  <h5 className="stat-count">{s.count}</h5>
+                <div key={i} className="stat-item d-flex flex-column">
+                  <h5 className="stat-count mb-0">{s.count}</h5>
                   <small className="stat-label">{s.label}</small>
                 </div>
               ))}
             </div>
-            <div className="stats-icons">
-              <FaWhatsapp className="icon" />
-              <FaPhoneAlt className="icon" />
+            <div className="stats-icons d-flex gap-2">
+              <FaWhatsapp className="fs-2" />
+              <IoCallOutline className="fs-2" />
             </div>
           </div>
 
-          {/* Gallery */}
           <div className="gallery-grid">
             {gallery.map((src, i) => (
               <img key={i} src={src} alt="" />

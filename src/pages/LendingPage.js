@@ -468,11 +468,36 @@ function LendingPage() {
 
   // Role definitions
   const roles = [
-    { title: "Manufacturer", bgClass: "bg-green-100", img: manufacturer },
-    { title: "Service", bgClass: "bg-blue-100", img: service },
-    { title: "Trader", bgClass: "bg-purple-100", img: trader },
-    { title: "Distributor", bgClass: "bg-yellow-100", img: distributor },
-    { title: "Influencers", bgClass: "bg-pink-100", img: influencer },
+    {
+      title: "Manufacturer",
+      bgClass: "bg-green-100",
+      img: manufacturer,
+      titleBg: "rgb(157 181 158)",
+    },
+    {
+      title: "Service",
+      bgClass: "bg-blue-100",
+      img: service,
+      titleBg: "rgb(128 183 203)",
+    },
+    {
+      title: "Trader",
+      bgClass: "bg-purple-100",
+      img: trader,
+      titleBg: "rgb(173 139 173)",
+    },
+    {
+      title: "Distributor",
+      bgClass: "bg-yellow-100",
+      img: distributor,
+      titleBg: "rgb(185 160 84)",
+    },
+    {
+      title: "Influencers",
+      bgClass: "bg-pink-100",
+      img: influencer,
+      titleBg: "rgb(195 142 130)",
+    },
   ];
 
   const locations = [
@@ -759,63 +784,76 @@ function LendingPage() {
 
         {/* Category Navigation */}
         <div className="Slider containers py-5">
-          <div className="d-flex align-items-center position-relative m-auto">
+          <div className="d-flex align-items-center justify-content-center position-relative m-auto">
+            {/* Left Button - beside first card */}
             <button className="btn btn-dark position-absolute start-0">
               <span>All Categories</span>
             </button>
 
-            <div className="d-flex  px-5 category-list">
+            {/* Categories Scroll List */}
+            <div className="d-flex px-5 category-list mx-auto">
               {categories.map((category, index) => (
                 <div
                   key={index}
                   className={`category-box px-3 py-2 mx-2 border rounded bg-white 
-                        ${selectedCategory === category.name ? "" : ""}`}
+            ${selectedCategory === category.name ? "" : ""}`}
                   onClick={() => setSelectedCategory(category.name)}
                   style={{ cursor: "pointer" }}
                 >
-                  <div className="fs-4">
-                    <img src={category.icon} alt="images" />
+                  <div
+                    className="d-flex justify-content-center align-items-center icon-container"
+                    style={{ height: "40px" }}
+                  >
+                    <img
+                      src={category.icon}
+                      alt="images"
+                      loading="lazy"
+                      style={{ maxHeight: "32px" }}
+                    />
                   </div>
-                  <div className="small text-center">{category.name}</div>
+                  <div className="small text-center mt-1">{category.name}</div>
                 </div>
               ))}
             </div>
 
-            {/* <button className="btn btn-dark position-absolute end-0">
+            {/* Right Button - beside last card */}
+            <button className="btn btn-dark position-absolute end-0">
               <span>All Categories</span>
-            </button> */}
+            </button>
           </div>
         </div>
 
-        <div
-          className="flex flex-wrap gap-4 justify-center py-6"
-          style={{ width: "100%" }}
-        >
+        <div className="flex flex-wrap gap-4 justify-center py-6 w-full">
           {roles.map((role, index) => (
             <div
               key={index}
-              className={`w-[260px] h-[260px] rounded-xl relative overflow-hidden ${role.bgClass}`}
+              className="w-[260px] h-[260px] rounded-xl overflow-hidden shadow-md"
             >
-              {/* Heading Positioned at Top */}
+              {/* Top bar with dynamic background */}
               <div
-                className="absolute top-2 left-1/2 -translate-x-1/2 text-white"
+                className="h-[60px] flex items-center justify-center"
                 style={{
-                  fontFamily: "Poppins,sans-serif",
-                  fontWeight: "500",
-                  fontSize: "30px",
+                  backgroundColor: role.titleBg,
                 }}
               >
-                {role.title}
+                <h3
+                  className="text-white text-2xl font-medium"
+                  style={{
+                    fontFamily: "Poppins, sans-serif",
+                  }}
+                >
+                  {role.title}
+                </h3>
               </div>
 
-              {/* Person Image Positioned Lower */}
-              {/* <div className="absolute bottom-0 w-full flex justify-center"> */}
-              <img
-                src={role.img}
-                alt={role.title}
-                className="w-full h-full object-cover"
-              />
-              {/* </div> */}
+              {/* Image Section */}
+              <div className="h-[200px]">
+                <img
+                  src={role.img}
+                  alt={role.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           ))}
         </div>
