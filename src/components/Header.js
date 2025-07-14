@@ -5,6 +5,7 @@ import { Bell } from "lucide-react";
 import { Menu, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { useCart } from "./CartContext";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +14,9 @@ const Header = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const userDetail = JSON.parse(localStorage.getItem("userDetail"))?.user || {};
+  // const userDetail = JSON.parse(localStorage.getItem("userDetail"))?.user || {};
+    const { user, logout } = useCart();
+
   const handleClose = () => {
     setAnchorEl(null);
     navigate("/landing");

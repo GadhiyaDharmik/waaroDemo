@@ -192,9 +192,9 @@ export default function Dashboard() {
                 <p className="fw-bold">{label}</p>
 
                 {/* Number and description side-by-side like the image */}
-                <div className="d-flex align-items-start">
-                  <h5 className="fw-bold mb-0 me-2">135</h5>
-                  <small className="text-dark">
+                <div className="flex items-start">
+                  <h5 className="font-bold mb-0 mr-2">135</h5>
+                  <small className="text-black text-[9px]">
                     Establish contact with potential clients or partners.
                   </small>
                 </div>

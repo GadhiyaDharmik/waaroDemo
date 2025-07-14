@@ -11,6 +11,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "../asset/logo.svg";
 import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import { useCart } from "./CartContext";
 
 // import DashboardIcon from "../asset/house-2.png";
 // import FolderIcon from "../asset/simcard.png";
@@ -21,6 +22,7 @@ import { useNavigate, useLocation } from "react-router-dom"; // Import useLocati
 
 import "./Sidebar.css";
 import { Button, Modal } from "react-bootstrap";
+
 import {
   BookCopy,
   ChartColumnStacked,
@@ -37,6 +39,8 @@ import {
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const { user, logout } = useCart();
+
   const location = useLocation(); // Use useLocation to track the current route
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -73,7 +77,7 @@ const Sidebar = () => {
     {
       text: "Product Listing",
       icon: <BookCopy alt="icon" className="icon" color="#ffffff" />,
-      link: "/add-product-main-page",
+      link: "/product-listing",
     },
     // {
     //   text: "Your Data",
@@ -126,32 +130,17 @@ const Sidebar = () => {
         onClose={toggleDrawer}
         sx={{
           "& .MuiDrawer-paper": {
-            width: 220,
+            width: 196,
             boxSizing: "border-box",
-            padding: "0.5rem",
-            scrollbarWidth: "none",
-            color: "white",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            borderRadius: "1rem",
+            padding: "6px",
           },
         }}
       >
-        {/* <div
-          style={{
-            textAlign: "center",
-            padding: "16px 0",
-            backgroundColor: "#FFFFFF",
-            borderRadius: 10,
-          }}
-        >
-          <img src={logo} alt="Logo" className="icon" />
-        </div> */}
-
         <div
           style={{
             backgroundColor: "#FFFFFF",
-            height: "100%",
+            height: "50%",
             borderRadius: "10px",
             display: "flex",
             flexDirection: "column",
@@ -159,70 +148,118 @@ const Sidebar = () => {
           }}
           className="mt-2"
         >
+          {/* Top Menu */}
           <List>
             {menuItems.map((item) => (
               <ListItem
                 button
                 key={item.text}
-                sx={{ "&:hover": { backgroundColor: "#6A4ED8" } }}
+                sx={{ "&:hover": { backgroundColor: "#000" } }}
                 onClick={() => handleMenuItemClick(item.link)}
                 className={location.pathname === item.link ? "active" : ""}
               >
-                <div>
-                  {/* <img src={item.icon} alt="icon" className="icon" /> */}
-                  {item.icon}
-                </div>
+                <div>{item.icon}</div>
                 <ListItemText primary={item.text} />
               </ListItem>
             ))}
           </List>
 
-          <Divider
-            sx={{
-              backgroundColor: "#fff",
-              margin: "10px",
-              padding: "1px",
-              borderColor: "#fff",
-              borderSize: "2px",
-            }}
-          />
-
-          <List>
-            {profileItems.map((item) => (
-              <ListItem
-                button
-                key={item.text}
-                onClick={() => handleMenuItemClick(item.link)}
-                sx={{ marginTop: "10px" }}
+          {/* Bottom Profile Section */}
+          <div style={{ padding: "1rem 0rem", borderTop: "1px solid #FFC817" }}>
+            <div style={{}}>
+              <div
+                style={{
+                  border: "1px solid #e6e6e6",
+                  borderRadius: "12px",
+                  padding: "8px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
                 <div>
-                  {/* <img src={item.icon} alt="icon" className="icon" /> */}
-                  {item.icon}
+                  <div style={{ fontSize: "11px", color: "#999" }}>
+                    Active{" "}
+                    {new Date().toLocaleDateString("en-IN", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </div>
+                  <div style={{ fontWeight: "600", fontSize: "14px" }}>
+                    {user?.name || "User Name"}
+                  </div>
+                  {/* <p style={{ fontSize: "12px", color: "#888", margin: 0 }}>
+        User ID: GJ01AB{user?._id?.slice(0, 4) || ""}
+      </p> */}
                 </div>
-                <ListItemText primary={item.text} />
-              </ListItem>
-            ))}
-          </List>
 
-          <List>
-            <ListItem
-              button
-              sx={{
-                "&:hover": { backgroundColor: "#6A4ED8" },
-                marginTop: "auto",
-              }}
-              onClick={() => {
-                navigate("/login");
-                localStorage.clear();
-              }}
-            >
-              <div>
-                {/* <img src={ExitToAppIcon} alt="icon" className="icon" /> */}
-                <LogOut color="#ffffff" alt="icon" className="icon" />
+                <div
+                  style={{
+                    position: "relative",
+                    width: "36px",
+                    height: "36px",
+                  }}
+                >
+                  <img
+                    src={
+                      user?.profilePicture && user?.profilePicture !== ""
+                        ? user.profilePicture
+                        : "https://i.imgur.com/og1Wc1z.png"
+                    }
+                    alt="avatar"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      backgroundColor: "#fabb18",
+                      padding: "4px",
+                    }}
+                  />
+                  <span
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      width: "8px",
+                      height: "8px",
+                      backgroundColor: "#32cd32",
+                      borderRadius: "50%",
+                      border: "2px solid white",
+                    }}
+                  ></span>
+                </div>
               </div>
-              <ListItemText primary="Sign Out" />
-            </ListItem>
-          </List>
+            </div>
+
+            <List>
+              {profileItems.map((item) => (
+                <ListItem
+                  button
+                  key={item.text}
+                  onClick={() => handleMenuItemClick(item.link)}
+                  sx={{ marginTop: "10px" }}
+                >
+                  <div>{item.icon}</div>
+                  <ListItemText primary={item.text} />
+                </ListItem>
+              ))}
+              <ListItem
+                button
+                sx={{ marginTop: "10px" }}
+                onClick={() => {
+                  navigate("/login");
+                  localStorage.clear();
+                }}
+              >
+                <div>
+                  <LogOut className="icon" />
+                </div>
+                <ListItemText primary="Sign Out" />
+              </ListItem>
+            </List>
+          </div>
         </div>
       </Drawer>
 

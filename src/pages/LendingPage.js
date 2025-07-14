@@ -52,7 +52,7 @@ import { Button, Image, Navbar } from "react-bootstrap";
 import logo from "../asset/logo.svg";
 import profilePicture from "../asset/profilePicture.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem, Stack } from "@mui/material";
 import { MapPin, ChevronDown } from "lucide-react";
 import manufacturer from "../asset/manufacturer.png";
 import service from "../asset/service.png";
@@ -943,16 +943,54 @@ function LendingPage() {
                     className="card-header d-flex align-items-center justify-content-between bg-white border-0"
                     style={{ borderRadius: "18px" }}
                   >
-                    <div className="d-flex align-items-center">
-                      <img
-                        src={card.userImage}
-                        alt={card.username}
-                        className="rounded-circle me-2"
-                        width="30"
-                        height="30"
-                      />
-                      <span className="fw-medium">{card.username}</span>
-                    </div>
+                    {/* Left: Overlapping Avatars + Username */}
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                      <Box position="relative" width={40} height={40}>
+                        {/* First Avatar */}
+                        <Avatar
+                          alt={card.username}
+                          src={card.userImage}
+                          sx={{
+                            width: 35,
+                            height: 35,
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            zIndex: 1,
+                          }}
+                        />
+                        {/* Second Avatar Overlapping */}
+                        <Avatar
+                          alt={card.username}
+                          src={card.userImage}
+                          sx={{
+                            width: 30,
+                            height: 30,
+                            position: "absolute",
+                            top: -5,
+                            left: 20,
+                            // zIndex: 2,
+                            border: "2px solid white",
+                          }}
+                        />
+                      </Box>
+
+                      {/* Username */}
+                      <Box>
+                        <Typography
+                          variant="body2"
+                          fontWeight={500}
+                          lineHeight={1.2}
+                        >
+                          {card.username}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          Mexico City, Mexico{" "}
+                        </Typography>
+                      </Box>
+                    </Stack>
+
+                    {/* Right: Icon Button */}
                     <button
                       className="btn btn-light btn-sm border-0"
                       style={{ background: "none" }}

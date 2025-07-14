@@ -473,7 +473,7 @@
 }
 
 .stat-box small {
-  font-size: 0.75rem;
+  /* font-size: 0.75rem; */
   color: #4b5563;
   /* slate-700 */
 }

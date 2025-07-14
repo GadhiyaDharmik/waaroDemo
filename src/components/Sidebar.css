@@ -88,3 +88,24 @@ ul li:hover {
   border-radius: 1rem !important;
   /* border-bottom-right-radius: 1rem !important; */
 }
+
+
+
+
+
+
+
+
+
+.active {
+  background-color: #000 !important;
+  border-radius: 10px !important;
+}
+
+.active span {
+  color: #fff !important;
+}
+
+.active .icon {
+  filter: invert(0) !important;
+}
