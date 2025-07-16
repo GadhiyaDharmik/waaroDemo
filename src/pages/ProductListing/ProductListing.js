@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import axiosMain from "../utils/axiosMain";
 import { toast } from "react-toastify"; // Import toast for notifications
-import i from "../../asset/I img.png";
 import ellipse from "../../asset/Product/Ellipse 2.png";
 import rectangle1 from "../../asset/Product/Rectangle1.png";
 import rectangle2 from "../../asset/Product/Rectangle2.png";
@@ -26,13 +25,13 @@ import shoes from "../../asset/shoes.png";
 import teddy from "../../asset/teddy.png";
 import train from "../../asset/train.png";
 import { Avatar } from "@mui/material";
-import send from "../../asset/SVG/send.svg";
 import save from "../../asset/SVG/save.svg";
 
 const ProductListing = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [producttoggle, setProductToggle] = useState(false);
   const [posttoggle, setPostToggle] = useState(false);
+  const [boostToggle, setBoostToggle] = useState(false);
   const [modalName, setModalName] = useState("");
   const [product, setProduct] = useState({
     category: "",
@@ -362,7 +361,7 @@ const ProductListing = () => {
     // </div>
     <>
       <div className="container mx-auto  grid grid-cols-12 gap-6">
-        <div className="col-span-12 md:col-span-4">
+        <div className="col-span-12 md:col-span-3">
           <div className="w-full">
             {producttoggle === false ? (
               <UploadCard
@@ -375,7 +374,7 @@ const ProductListing = () => {
           </div>
         </div>
 
-        <div className="col-span-12 md:col-span-4">
+        <div className="col-span-12 md:col-span-3">
           <div className="w-full">
             {posttoggle === false ? (
               <UploadCard
@@ -392,108 +391,118 @@ const ProductListing = () => {
           </div>
         </div>
 
-        <div className="col-span-12 md:col-span-4">
-          <div className="grid grid-cols-2 gap-4">
-            {categoryCards.map((card) => (
-              <div
-                key={card.id}
-                className="bg-white rounded-xl shadow hover:shadow-md transition duration-200 w-[170px]" // 👈 added width
-              >
-                {/* Header */}
-                <div className="flex justify-between items-center p-2">
-                  <div className="flex items-center">
-                    <div className="relative w-10 h-10">
-                      {/* First Avatar */}
-                      <Avatar
-                        alt={card.username}
-                        src={card.userImage}
-                        sx={{
-                          width: 30,
-                          height: 30,
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          zIndex: 1,
-                        }}
-                      />
-                      {/* Second Avatar */}
-                      <Avatar
-                        alt={card.username}
-                        src={card.userImage}
-                        sx={{
-                          width: 25,
-                          height: 25,
-                          position: "absolute",
-                          top: -5,
-                          left: 20,
-                          border: "2px solid white",
-                        }}
-                      />
+        <div className="col-span-12 md:col-span-6">
+          {/* White background container box */}
+          {!boostToggle ? (
+            <div className="bg-white p-4 rounded-xl shadow-md ">
+              <div className="grid grid-cols-2 gap-y-2 gap-x-4 max-w-[500px] mx-auto">
+                {categoryCards.map((card) => (
+                  <div
+                    key={card.id}
+                    className="bg-white rounded-xl shadow hover:shadow-md transition duration-200 w-[230px]"
+                  >
+                    {/* Header */}
+                    <div className="flex justify-between items-center p-2">
+                      <div className="flex items-center">
+                        <div className="relative w-10 h-10">
+                          <Avatar
+                            alt={card.username}
+                            src={card.userImage}
+                            sx={{
+                              width: 30,
+                              height: 30,
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              zIndex: 1,
+                            }}
+                          />
+                          <Avatar
+                            alt={card.username}
+                            src={card.userImage}
+                            sx={{
+                              width: 25,
+                              height: 25,
+                              position: "absolute",
+                              top: -5,
+                              left: 20,
+                              border: "2px solid white",
+                            }}
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm font-semibold mb-0">
+                            {card.username}
+                          </p>
+                          <p className="text-xs text-gray-500 mb-0 text-[9px]">
+                            Mexico City, Mexico
+                          </p>
+                        </div>
+                      </div>
+
+                      <button className="text-gray-500 hover:text-black">
+                        <MoreHorizontal size={20} />
+                      </button>
                     </div>
-                    <div className="ml-3">
-                      <p className="text-sm font-semibold mb-0">
-                        {card.username}
-                      </p>
-                      <p className="text-xs text-gray-500 mb-0 text-[9px]">
-                        Mexico City, Mexico
-                      </p>
+
+                    {/* Image */}
+                    <img
+                      src={card.mainImage}
+                      alt={card.imageAlt}
+                      className="w-full h-45 object-scale-down"
+                      style={{ borderRadius: "15px" }}
+                    />
+
+                    {/* Body */}
+                    <div className="flex items-center justify-between px-2 mb-2">
+                      <button className="flex items-center px-2 py-1 rounded-full bg-gray-200 text-[10px]">
+                        <Heart size={12} className="text-gray-700" />
+                        <span className="ml-1">5.44k</span>
+                      </button>
+
+                      <div className="flex items-center gap-1">
+                        <button className="p-1 rounded bg-gray-100">
+                          <img
+                            src={save}
+                            alt="Bookmark"
+                            className="w-[12px] h-[12px]"
+                          />
+                        </button>
+                        <button
+                          className="px-1.5 py-[2px] rounded text-black text-[10px]"
+                          style={{
+                            fontFamily: "Poppins, sans-serif",
+                            lineHeight: "normal",
+                          }}
+                        >
+                          Connect
+                        </button>
+                        <button
+                          className="px-1.5 py-[2px] rounded bg-yellow-500 text-black text-[10px]"
+                          style={{
+                            fontFamily: "Poppins, sans-serif",
+                            lineHeight: "normal",
+                          }}
+                          onClick={() => {
+                            setBoostToggle(true);
+                            setModalName("Modal1");
+                          }}
+                        >
+                          Boost
+                        </button>
+                      </div>
                     </div>
                   </div>
-
-                  {/* More Button */}
-                  <button className="text-gray-500 hover:text-black">
-                    <MoreHorizontal size={20} />
-                  </button>
-                </div>
-
-                {/* Image */}
-                <img
-                  src={card.mainImage}
-                  alt={card.imageAlt}
-                  className="w-full h-40 object-scale-down"
-                  style={{ borderRadius: "15px" }}
-                />
-
-                {/* Body */}
-                <div className="flex items-center justify-between px-2 mb-2">
-                  {/* Likes */}
-                  <button className="flex items-center px-2 py-1 rounded-full bg-gray-200 text-[10px]">
-                    <Heart size={12} className="text-gray-700" />
-                    <span className="ml-1">5.44k</span>
-                  </button>
-
-                  {/* Actions */}
-                  <div className="flex items-center gap-1">
-                    <button className="p-1 rounded bg-gray-100">
-                      <img
-                        src={save}
-                        alt="Bookmark"
-                        className="w-[12px] h-[12px]"
-                      />
-                    </button>
-                    <button
-                      className="px-1.5 py-[2px] rounded  text-black text-[10px]"
-                      style={{
-                        fontFamily: "Poppins, sans-serif",
-                        lineHeight: "normal",
-                      }}
-                    >
-                      Connect
-                    </button>
-                    <button
-                      className="px-1.5 py-[2px] rounded bg-yellow-500 text-black text-[10px]"
-                      style={{
-                        fontFamily: "Poppins, sans-serif",
-                        lineHeight: "normal",
-                      }}
-                    >
-                      Boost
-                    </button>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <UploadPosts
+              handleClose={setPostToggle}
+              modalName={modalName}
+              setModalName={setModalName}
+            />
+          )}
         </div>
       </div>
     </>
@@ -671,37 +680,56 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
 
               <div className="space-y-4">
                 <label className="flex items-center">
-                  <input type="radio" name="action" className="mr-2" />
                   <span className="text-sm">
-                    Visit Your Profile
+                    <span className="text-heading">Visit Your Profile</span>
                     <br />
-                    Best for Brand awareness and connect @wazaro_official
+                    <span className="text-description">
+                      Best for Brand awareness and connect @wazaro_official
+                    </span>
                   </span>
+
+                  <input
+                    type="radio"
+                    name="action"
+                    className="mr-2 accent-black"
+                  />
                 </label>
 
                 <label className="flex items-center">
-                  <input type="radio" name="action" className="mr-2" />
                   <span className="text-sm">
-                    Visit your website
+                    <span className="text-heading">Visit Your Profile</span>
                     <br />
-                    Best for online sales, booking and helping people learn more
-                    about you
+                    <span className="text-description">
+                      Best for online sales, booking and helping people learn
+                      more about you
+                    </span>
                   </span>
+                  <input
+                    type="radio"
+                    name="action"
+                    className="mr-2 accent-black "
+                  />
                 </label>
 
                 <label className="flex items-center">
-                  <input type="radio" name="action" className="mr-2" />
                   <span className="text-sm">
-                    Message you
+                    <span className="text-heading"> Message you</span>
                     <br />
-                    Best connecting with more people in wazaro to drive sales
+                    <span className="text-description">
+                      Best connecting with more people in wazaro to drive sales
+                    </span>
                   </span>
+                  <input
+                    type="radio"
+                    name="action"
+                    className="mr-2 accent-black"
+                  />
                 </label>
               </div>
             </div>
             <button
               type="button"
-              className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md font-medium"
+              className="w-full bg-black  text-white py-2 rounded-md font-medium"
               onClick={() => setModalName("Modal2")}
             >
               Submit
@@ -712,15 +740,17 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
         {modalName === "Modal2" && (
           <>
             <div className="bg-white rounded-lg p-6">
-              <h2 className="text-xl font-bold mb-4">N/A</h2>
-              <p className="text-sm text-gray-500 mb-4">
+              <h2 className="text-xl font-bold mb-4 text-center">N/A</h2>
+              <p className="text-sm text-gray-500 mb-4 text-center">
                 Estimated audience size
               </p>
 
               <div className="space-y-6">
                 <label className="flex items-center justify-between cursor-pointer">
                   <span className="text-sm mr-3">
-                    Use advantage+ audience
+                    <span className="text-heading fs-8">
+                      Use advantage+ audience
+                    </span>
                     <br />
                     Automatically finds and updates audience whenever it's
                     likely to improve performance
@@ -747,7 +777,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                 </label>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 text-heading">
                     Campaign name
                   </label>
                   <input
@@ -758,7 +788,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 text-heading">
                     Locations
                   </label>
                   <select className="w-full p-2 border rounded-lg text-sm text-gray-500">
@@ -768,7 +798,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
 
                 <button
                   type="button"
-                  className="w-full bg-green-400 text-white py-2 rounded-lg font-medium mt-4"
+                  className="w-full bg-black text-white py-2 rounded-lg font-medium mt-4"
                   onClick={() => setModalName("Modal3")}
                 >
                   Submit
@@ -821,7 +851,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                         <div
                           className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
                             selectedAction === action
-                              ? "border-green-400 bg-green-400"
+                              ? "border-black bg-black"
                               : "border-gray-400 bg-white"
                           }`}
                         >
@@ -836,7 +866,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md font-medium"
+                className="w-full bg-black text-white py-2 rounded-md font-medium"
                 typeof="button"
                 onClick={() => setModalName("Modal4")}
               >
@@ -881,7 +911,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                         <div
                           className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
                             selectedActionMsg === action
-                              ? "border-green-400 bg-green-400"
+                              ? "border-black bg-black"
                               : "border-gray-400 bg-white"
                           }`}
                         >
@@ -896,7 +926,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
               </div>
               <button
                 type="button"
-                className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md font-medium"
+                className="w-full bg-black text-white py-2 rounded-md font-medium"
                 onClick={() => setModalName("Modal5")}
               >
                 Submit
@@ -958,7 +988,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                     <div
                       className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
                         budgetType === "unlimited"
-                          ? "border-green-400 bg-green-400"
+                          ? "border-black bg-black"
                           : "border-gray-400 bg-white"
                       }`}
                     >
@@ -990,27 +1020,28 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                       />
                     </div>
                   </div>
-                  <div className="relative ml-4">
-                    <input
-                      type="radio"
-                      name="duration"
-                      value="set"
-                      checked={budgetType === "set"}
-                      onChange={(e) => setBudgetType(e.target.value)}
-                      className="sr-only"
-                    />
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-                        budgetType === "set"
-                          ? "border-green-400 bg-green-400"
-                          : "border-gray-400 bg-white"
-                      }`}
-                    >
-                      {budgetType === "set" && (
-                        <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-                      )}
-                    </div>
-                  </div>
+                <label className="relative ml-4 cursor-pointer inline-flex items-center">
+  <input
+    type="radio"
+    name="duration"
+    value="set"
+    checked={budgetType === "set"}
+    onChange={(e) => setBudgetType(e.target.value)}
+    className="sr-only"
+  />
+  <div
+    className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+      budgetType === "set"
+        ? "border-black bg-black"
+        : "border-gray-400 bg-white"
+    }`}
+  >
+    {budgetType === "set" && (
+      <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+    )}
+  </div>
+</label>
+
                 </label>
               </div>
 
