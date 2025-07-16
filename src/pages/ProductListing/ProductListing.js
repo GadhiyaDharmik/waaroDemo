@@ -757,14 +757,12 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                   </span>
                   <div className="relative">
                     <div
-                      className={`block w-14 h-8 rounded-full transition-colors duration-200 ease-in-out ${
-                        isEnabled ? "bg-blue-600" : "bg-gray-300"
-                      }`}
+                      className={`block w-14 h-8 rounded-full transition-colors duration-200 ease-in-out ${isEnabled ? "bg-blue-600" : "bg-gray-300"
+                        }`}
                     >
                       <div
-                        className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-200 ease-in-out ${
-                          isEnabled ? "transform translate-x-6" : ""
-                        }`}
+                        className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-200 ease-in-out ${isEnabled ? "transform translate-x-6" : ""
+                          }`}
                       ></div>
                     </div>
                     <input
@@ -849,11 +847,10 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                           className="sr-only"
                         />
                         <div
-                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-                            selectedAction === action
-                              ? "border-black bg-black"
-                              : "border-gray-400 bg-white"
-                          }`}
+                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedAction === action
+                            ? "border-black bg-black"
+                            : "border-gray-400 bg-white"
+                            }`}
                         >
                           {selectedAction === action && (
                             <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -909,11 +906,10 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                           className="sr-only"
                         />
                         <div
-                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-                            selectedActionMsg === action
-                              ? "border-black bg-black"
-                              : "border-gray-400 bg-white"
-                          }`}
+                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedActionMsg === action
+                            ? "border-black bg-black"
+                            : "border-gray-400 bg-white"
+                            }`}
                         >
                           {selectedActionMsg === action && (
                             <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -986,11 +982,10 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                       className="sr-only"
                     />
                     <div
-                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-                        budgetType === "unlimited"
-                          ? "border-black bg-black"
-                          : "border-gray-400 bg-white"
-                      }`}
+                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${budgetType === "unlimited"
+                        ? "border-black bg-black"
+                        : "border-gray-400 bg-white"
+                        }`}
                     >
                       {budgetType === "unlimited" && (
                         <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -1016,31 +1011,30 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                         onChange={(e) => setDuration(Number(e.target.value))}
                         className={`w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer slider
                       }`}
-                        // disabled={budgetType === "unlimited"}
+                      // disabled={budgetType === "unlimited"}
                       />
                     </div>
                   </div>
-                <label className="relative ml-4 cursor-pointer inline-flex items-center">
-  <input
-    type="radio"
-    name="duration"
-    value="set"
-    checked={budgetType === "set"}
-    onChange={(e) => setBudgetType(e.target.value)}
-    className="sr-only"
-  />
-  <div
-    className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-      budgetType === "set"
-        ? "border-black bg-black"
-        : "border-gray-400 bg-white"
-    }`}
-  >
-    {budgetType === "set" && (
-      <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-    )}
-  </div>
-</label>
+                  <label className="relative ml-4 cursor-pointer inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="duration"
+                      value="set"
+                      checked={budgetType === "set"}
+                      onChange={(e) => setBudgetType(e.target.value)}
+                      className="sr-only"
+                    />
+                    <div
+                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${budgetType === "set"
+                        ? "border-black bg-black"
+                        : "border-gray-400 bg-white"
+                        }`}
+                    >
+                      {budgetType === "set" && (
+                        <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                      )}
+                    </div>
+                  </label>
 
                 </label>
               </div>
@@ -1098,14 +1092,123 @@ const Product = ({ handleClose }) => {
   const producthandleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
+      // setSelectedImage(URL.createObjectURL(file));
+      setSelectedImage(file);
     }
   };
 
-  const producthandleSubmit = (e) => {
+  // Example data.js (or inside your component)
+  const categories = [
+    {
+      name: "Electronics",
+      subCategories: ["Mobile", "Laptop", "Tablet"]
+    },
+    {
+      name: "Clothing",
+      subCategories: ["Men", "Women", "Kids"]
+    },
+    {
+      name: "Home",
+      subCategories: ["Furniture", "Decor", "Appliances"]
+    }
+  ];
+
+  const statesData = [
+    {
+      name: "Gujarat",
+      cities: [
+        {
+          name: "Ahmedabad",
+          areaCodes: ["380001", "380015", "380060"]
+        },
+        {
+          name: "Surat",
+          areaCodes: ["395003", "395007", "395009"]
+        },
+        {
+          name: "Vadodara",
+          areaCodes: ["390001", "390007"]
+        }
+      ]
+    },
+    {
+      name: "Maharashtra",
+      cities: [
+        {
+          name: "Mumbai",
+          areaCodes: ["400001", "400050"]
+        },
+        {
+          name: "Pune",
+          areaCodes: ["411001", "411028"]
+        },
+        {
+          name: "Nagpur",
+          areaCodes: ["440001", "440012"]
+        }
+      ]
+    }
+  ];
+
+  const selectedCategoryObj = categories.find(c => c.name === product.category);
+  const subCategories = selectedCategoryObj ? selectedCategoryObj.subCategories : [];
+
+  const selectedStateObj = statesData.find(s => s.name === product.state);
+  const cities = selectedStateObj ? selectedStateObj.cities : [];
+
+  const selectedCityObj = cities.find(c => c.name === product.city);
+  const areaCodes = selectedCityObj ? selectedCityObj.areaCodes : [];
+
+  const producthandleSubmit = async (e) => {
     e.preventDefault();
     console.log(product);
     // axiosMain.post("api/create-post",)
+
+    try {
+      const userDetail = JSON.parse(localStorage.getItem("userDetail"));
+      const userId = userDetail?.user?._id;
+
+      let imageUrl = "";
+
+      if (!selectedImage) {
+        console.warn("No image selected. Product creation aborted.");
+        return;
+      }
+
+      // 1️⃣ Upload image first if selectedImage is a File
+      if (selectedImage && selectedImage instanceof File) {
+        const formData = new FormData();
+        formData.append("file", selectedImage);
+
+        const uploadRes = await axiosMain.post("/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        console.log(uploadRes, "uploadRes");
+
+        if (uploadRes?.success) {
+          imageUrl = uploadRes?.fileUrl;
+        } else {
+          throw new Error("Image upload failed");
+        }
+      }
+
+      // 2️⃣ Then create product
+      const payload = {
+        ...product,
+        price: Number(product.price),
+        userId: userId,
+        image: imageUrl,
+      };
+      console.log(payload, "payload");
+
+
+      const res = await axiosMain.post("/api/create-post", payload);
+      console.log("Product created:", res.data);
+
+      // Optional: success message or reset form here
+    } catch (err) {
+      console.error("Error creating product:", err);
+    }
   };
 
   return (
@@ -1126,7 +1229,11 @@ const Product = ({ handleClose }) => {
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-black appearance-none pr-10"
               style={{ backgroundColor: "#FAFAFA" }}
             >
+              {/* <option>Select Category</option> */}
               <option>Select Category</option>
+              {categories.map((c) => (
+                <option key={c.name} value={c.name}>{c.name}</option>
+              ))}
               {/* Add dynamic options */}
             </select>
 
@@ -1149,7 +1256,11 @@ const Product = ({ handleClose }) => {
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black appearance-none pr-10"
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <option>Select Category</option>
+            {/* <option>Select Category</option> */}
+            <option>Select Sub Category</option>
+            {subCategories.map((sub) => (
+              <option key={sub} value={sub}>{sub}</option>
+            ))}
             {/* Add your dynamic options here */}
           </select>
 
@@ -1187,7 +1298,7 @@ const Product = ({ handleClose }) => {
               <div className="w-10 h-10 overflow-hidden rounded-lg border border-gray-300">
                 {selectedImage ? (
                   <img
-                    src={selectedImage}
+                    src={typeof selectedImage === "string" ? selectedImage : URL.createObjectURL(selectedImage)}
                     alt="preview"
                     className="w-full h-full object-cover"
                   />
@@ -1266,9 +1377,13 @@ const Product = ({ handleClose }) => {
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black appearance-none pr-10"
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <option>Select City Name</option>
+            {/* <option>Select City Name</option>
             <option>New York</option>
-            <option>Los Angeles</option>
+            <option>Los Angeles</option> */}
+            <option>Select City Name</option>
+            {cities.map((c) => (
+              <option key={c.name} value={c.name}>{c.name}</option>
+            ))}
           </select>
 
           <ChevronDown
@@ -1287,9 +1402,13 @@ const Product = ({ handleClose }) => {
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black appearance-none pr-10"
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <option>Select Area code</option>
+            {/* <option>Select Area code</option>
             <option>123</option>
-            <option>456</option>
+            <option>456</option> */}
+            <option>Select Area code</option>
+            {areaCodes.map((code) => (
+              <option key={code} value={code}>{code}</option>
+            ))}
           </select>
 
           <ChevronDown
@@ -1309,7 +1428,11 @@ const Product = ({ handleClose }) => {
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black appearance-none pr-10"
             style={{ backgroundColor: "#FAFAFA" }}
           >
+            {/* <option>Select State</option> */}
             <option>Select State</option>
+            {statesData.map((s) => (
+              <option key={s.name} value={s.name}>{s.name}</option>
+            ))}
             {/* Add dynamic state options here */}
           </select>
 
@@ -1354,8 +1477,8 @@ const Product = ({ handleClose }) => {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full text-black py-2 rounded-md font-medium transition"
-          style={{ backgroundColor: "#88E5B4" }}
+          className="w-full text-white~ py-2 rounded-md font-medium transition"
+          style={{ backgroundColor: "#000000" }}
         >
           Submit
         </button>
