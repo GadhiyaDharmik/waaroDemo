@@ -619,7 +619,6 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
       };
       console.log(payload, "payload");
 
-
       const res = await axiosMain.post("/create-post", payload);
       console.log("Product created:", res.data);
 
@@ -650,7 +649,11 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                   <div className="w-10 h-10 overflow-hidden rounded-lg border border-gray-300">
                     {selectedImagePost ? (
                       <img
-                        src={typeof selectedImage === "string" ? selectedImagePost : URL.createObjectURL(selectedImagePost)}
+                        src={
+                          typeof selectedImage === "string"
+                            ? selectedImagePost
+                            : URL.createObjectURL(selectedImagePost)
+                        }
                         alt="preview"
                         className="w-full h-full object-cover"
                       />
@@ -708,8 +711,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full text-black py-2 rounded-md font-medium  transition"
-              style={{ backgroundColor: "#88E5B4" }}
+              className="btn btn-dark w-full rounded-md font-medium  transition"
             >
               Submit
             </button>
@@ -782,7 +784,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
             </div>
             <button
               type="button"
-              className="w-full bg-black  text-white py-2 rounded-md font-medium"
+              className="btn btn-dark w-full bg-black  text-white rounded-md font-medium"
               onClick={() => setModalName("Modal2")}
             >
               Submit
@@ -810,12 +812,14 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                   </span>
                   <div className="relative">
                     <div
-                      className={`block w-14 h-8 rounded-full transition-colors duration-200 ease-in-out ${isEnabled ? "bg-blue-600" : "bg-gray-300"
-                        }`}
+                      className={`block w-14 h-8 rounded-full transition-colors duration-200 ease-in-out ${
+                        isEnabled ? "bg-blue-600" : "bg-gray-300"
+                      }`}
                     >
                       <div
-                        className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-200 ease-in-out ${isEnabled ? "transform translate-x-6" : ""
-                          }`}
+                        className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-200 ease-in-out ${
+                          isEnabled ? "transform translate-x-6" : ""
+                        }`}
                       ></div>
                     </div>
                     <input
@@ -849,7 +853,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
 
                 <button
                   type="button"
-                  className="w-full bg-black text-white py-2 rounded-lg font-medium mt-4"
+                  className="btn btn-dark w-full bg-black text-white rounded-lg font-medium mt-4"
                   onClick={() => setModalName("Modal3")}
                 >
                   Submit
@@ -900,10 +904,11 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                           className="sr-only"
                         />
                         <div
-                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedAction === action
-                            ? "border-black bg-black"
-                            : "border-gray-400 bg-white"
-                            }`}
+                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                            selectedAction === action
+                              ? "border-black bg-black"
+                              : "border-gray-400 bg-white"
+                          }`}
                         >
                           {selectedAction === action && (
                             <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -916,7 +921,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-black text-white py-2 rounded-md font-medium"
+                className="btn btn-dark w-full bg-black text-white rounded-md font-medium"
                 typeof="button"
                 onClick={() => setModalName("Modal4")}
               >
@@ -959,10 +964,11 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                           className="sr-only"
                         />
                         <div
-                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedActionMsg === action
-                            ? "border-black bg-black"
-                            : "border-gray-400 bg-white"
-                            }`}
+                          className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                            selectedActionMsg === action
+                              ? "border-black bg-black"
+                              : "border-gray-400 bg-white"
+                          }`}
                         >
                           {selectedActionMsg === action && (
                             <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -975,7 +981,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
               </div>
               <button
                 type="button"
-                className="w-full bg-black text-white py-2 rounded-md font-medium"
+                className="btn btn-dark w-full bg-black text-white rounded-md font-medium"
                 onClick={() => setModalName("Modal5")}
               >
                 Submit
@@ -1035,10 +1041,11 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                       className="sr-only"
                     />
                     <div
-                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${budgetType === "unlimited"
-                        ? "border-black bg-black"
-                        : "border-gray-400 bg-white"
-                        }`}
+                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                        budgetType === "unlimited"
+                          ? "border-black bg-black"
+                          : "border-gray-400 bg-white"
+                      }`}
                     >
                       {budgetType === "unlimited" && (
                         <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -1064,7 +1071,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                         onChange={(e) => setDuration(Number(e.target.value))}
                         className={`w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer slider
                       }`}
-                      // disabled={budgetType === "unlimited"}
+                        // disabled={budgetType === "unlimited"}
                       />
                     </div>
                   </div>
@@ -1078,17 +1085,17 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                       className="sr-only"
                     />
                     <div
-                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${budgetType === "set"
-                        ? "border-black bg-black"
-                        : "border-gray-400 bg-white"
-                        }`}
+                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                        budgetType === "set"
+                          ? "border-black bg-black"
+                          : "border-gray-400 bg-white"
+                      }`}
                     >
                       {budgetType === "set" && (
                         <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
                       )}
                     </div>
                   </label>
-
                 </label>
               </div>
 
@@ -1154,16 +1161,16 @@ const Product = ({ handleClose }) => {
   const categories = [
     {
       name: "Electronics",
-      subCategories: ["Mobile", "Laptop", "Tablet"]
+      subCategories: ["Mobile", "Laptop", "Tablet"],
     },
     {
       name: "Clothing",
-      subCategories: ["Men", "Women", "Kids"]
+      subCategories: ["Men", "Women", "Kids"],
     },
     {
       name: "Home",
-      subCategories: ["Furniture", "Decor", "Appliances"]
-    }
+      subCategories: ["Furniture", "Decor", "Appliances"],
+    },
   ];
 
   const statesData = [
@@ -1172,44 +1179,48 @@ const Product = ({ handleClose }) => {
       cities: [
         {
           name: "Ahmedabad",
-          areaCodes: ["380001", "380015", "380060"]
+          areaCodes: ["380001", "380015", "380060"],
         },
         {
           name: "Surat",
-          areaCodes: ["395003", "395007", "395009"]
+          areaCodes: ["395003", "395007", "395009"],
         },
         {
           name: "Vadodara",
-          areaCodes: ["390001", "390007"]
-        }
-      ]
+          areaCodes: ["390001", "390007"],
+        },
+      ],
     },
     {
       name: "Maharashtra",
       cities: [
         {
           name: "Mumbai",
-          areaCodes: ["400001", "400050"]
+          areaCodes: ["400001", "400050"],
         },
         {
           name: "Pune",
-          areaCodes: ["411001", "411028"]
+          areaCodes: ["411001", "411028"],
         },
         {
           name: "Nagpur",
-          areaCodes: ["440001", "440012"]
-        }
-      ]
-    }
+          areaCodes: ["440001", "440012"],
+        },
+      ],
+    },
   ];
 
-  const selectedCategoryObj = categories.find(c => c.name === product.category);
-  const subCategories = selectedCategoryObj ? selectedCategoryObj.subCategories : [];
+  const selectedCategoryObj = categories.find(
+    (c) => c.name === product.category
+  );
+  const subCategories = selectedCategoryObj
+    ? selectedCategoryObj.subCategories
+    : [];
 
-  const selectedStateObj = statesData.find(s => s.name === product.state);
+  const selectedStateObj = statesData.find((s) => s.name === product.state);
   const cities = selectedStateObj ? selectedStateObj.cities : [];
 
-  const selectedCityObj = cities.find(c => c.name === product.city);
+  const selectedCityObj = cities.find((c) => c.name === product.city);
   const areaCodes = selectedCityObj ? selectedCityObj.areaCodes : [];
 
   const producthandleSubmit = async (e) => {
@@ -1254,8 +1265,8 @@ const Product = ({ handleClose }) => {
       };
       console.log(payload, "payload");
 
-
       const res = await axiosMain.post("/create-product", payload);
+      handleClose();
       console.log("Product created:", res.data);
 
       // Optional: success message or reset form here
@@ -1285,7 +1296,9 @@ const Product = ({ handleClose }) => {
               {/* <option>Select Category</option> */}
               <option>Select Category</option>
               {categories.map((c) => (
-                <option key={c.name} value={c.name}>{c.name}</option>
+                <option key={c.name} value={c.name}>
+                  {c.name}
+                </option>
               ))}
               {/* Add dynamic options */}
             </select>
@@ -1312,7 +1325,9 @@ const Product = ({ handleClose }) => {
             {/* <option>Select Category</option> */}
             <option>Select Sub Category</option>
             {subCategories.map((sub) => (
-              <option key={sub} value={sub}>{sub}</option>
+              <option key={sub} value={sub}>
+                {sub}
+              </option>
             ))}
             {/* Add your dynamic options here */}
           </select>
@@ -1351,7 +1366,11 @@ const Product = ({ handleClose }) => {
               <div className="w-10 h-10 overflow-hidden rounded-lg border border-gray-300">
                 {selectedImage ? (
                   <img
-                    src={typeof selectedImage === "string" ? selectedImage : URL.createObjectURL(selectedImage)}
+                    src={
+                      typeof selectedImage === "string"
+                        ? selectedImage
+                        : URL.createObjectURL(selectedImage)
+                    }
                     alt="preview"
                     className="w-full h-full object-cover"
                   />
@@ -1419,6 +1438,33 @@ const Product = ({ handleClose }) => {
           />
         </div>
 
+        {/* State */}
+        <div className="relative w-full">
+          <label className="block text-sm font-medium mb-1">State</label>
+
+          <select
+            name="state"
+            value={product.state}
+            onChange={producthandleChange}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black appearance-none pr-10"
+            style={{ backgroundColor: "#FAFAFA" }}
+          >
+            {/* <option>Select State</option> */}
+            <option>Select State</option>
+            {statesData.map((s) => (
+              <option key={s.name} value={s.name}>
+                {s.name}
+              </option>
+            ))}
+            {/* Add dynamic state options here */}
+          </select>
+
+          <ChevronDown
+            className="absolute right-3 top-[43px] transform -translate-y-1/2 pointer-events-none text-gray-500"
+            size={18}
+          />
+        </div>
+
         {/* City Name */}
         <div className="relative w-full">
           <label className="block text-sm font-medium mb-1">City Name</label>
@@ -1435,7 +1481,9 @@ const Product = ({ handleClose }) => {
             <option>Los Angeles</option> */}
             <option>Select City Name</option>
             {cities.map((c) => (
-              <option key={c.name} value={c.name}>{c.name}</option>
+              <option key={c.name} value={c.name}>
+                {c.name}
+              </option>
             ))}
           </select>
 
@@ -1460,33 +1508,10 @@ const Product = ({ handleClose }) => {
             <option>456</option> */}
             <option>Select Area code</option>
             {areaCodes.map((code) => (
-              <option key={code} value={code}>{code}</option>
+              <option key={code} value={code}>
+                {code}
+              </option>
             ))}
-          </select>
-
-          <ChevronDown
-            className="absolute right-3 top-[43px] transform -translate-y-1/2 pointer-events-none text-gray-500"
-            size={18}
-          />
-        </div>
-
-        {/* State */}
-        <div className="relative w-full">
-          <label className="block text-sm font-medium mb-1">State</label>
-
-          <select
-            name="state"
-            value={product.state}
-            onChange={producthandleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black appearance-none pr-10"
-            style={{ backgroundColor: "#FAFAFA" }}
-          >
-            {/* <option>Select State</option> */}
-            <option>Select State</option>
-            {statesData.map((s) => (
-              <option key={s.name} value={s.name}>{s.name}</option>
-            ))}
-            {/* Add dynamic state options here */}
           </select>
 
           <ChevronDown
@@ -1530,8 +1555,8 @@ const Product = ({ handleClose }) => {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full text-white~ py-2 rounded-md font-medium transition"
-          style={{ backgroundColor: "#000000" }}
+          className="btn btn-dark w-full text-white rounded-md font-medium transition"
+          // style={{ backgroundColor: "#000000" }}
         >
           Submit
         </button>
