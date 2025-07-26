@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Base API URL (Update according to your backend)
-const BASE_URL = "https://waaro.in/api";  
-// const BASE_URL = "http://localhost:8000/api";  
+// const BASE_URL = "https://waaro.in/api";  
+const BASE_URL = "http://localhost:8000/api";  
 
 // Create an Axios instance
 const axiosMain = axios.create({

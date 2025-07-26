@@ -59,6 +59,7 @@ import service from "../asset/service.png";
 import trader from "../asset/trader.png";
 import distributor from "../asset/distributor.png";
 import influencer from "../asset/influencer.png";
+import noImage from "../asset/NoImage.jpg";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import hero from "../asset/Group 39864.png";
 import {
@@ -72,6 +73,8 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import axiosMain from "./utils/axiosMain";
+import { connect } from "formik";
 
 function LendingPage() {
   // const [selectedCategory, setSelectedCategory] = useState(null);
@@ -141,7 +144,7 @@ function LendingPage() {
     { id: 5, image: dr, category: "Building and Construction" },
     { id: 6, image: leg, category: "Building and Construction" },
   ];
-
+  const [postData, setPostData] = useState([]);
   const categoryCards = [
     {
       id: 1,
@@ -246,62 +249,139 @@ function LendingPage() {
       action: "Inquire",
     },
   ];
-  const products = [
-    {
-      id: 1,
-      name: "Vitamin-C Casual",
-      brand: "Cardo",
-      location: "Semarang, Indonesia",
-      image: lab,
-      price: "₹ 200",
-      unit: "Stripe",
-    },
-    {
-      id: 2,
-      name: "Vitamin-C Casual",
-      brand: "Cardo",
-      location: "Semarang, Indonesia",
-      image: mouse,
-      price: "₹ 200",
-      unit: "Stripe",
-    },
-    {
-      id: 3,
-      name: "Vitamin-C Casual",
-      brand: "Cardo",
-      location: "Semarang, Indonesia",
-      image: bowl,
-      price: "₹ 200",
-      unit: "Stripe",
-    },
-    {
-      id: 4,
-      name: "Vitamin-C Casual",
-      brand: "Cardo",
-      location: "Semarang, Indonesia",
-      image: building,
-      price: "₹ 200",
-      unit: "Stripe",
-    },
-    {
-      id: 5,
-      name: "Vitamin-C Casual",
-      brand: "Cardo",
-      location: "Semarang, Indonesia",
-      image: mattchine,
-      price: "₹ 200",
-      unit: "Stripe",
-    },
-    {
-      id: 6,
-      name: "Vitamin-C Casual",
-      brand: "Cardo",
-      location: "Semarang, Indonesia",
-      image: helicopter,
-      price: "₹ 200",
-      unit: "Stripe",
-    },
-  ];
+  // const products = [
+  //   {
+  //     id: 1,
+  //     name: "Vitamin-C Casual",
+  //     brand: "Cardo",
+  //     location: "Semarang, Indonesia",
+  //     image: lab,
+  //     price: "₹ 200",
+  //     unit: "Stripe",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Vitamin-C Casual",
+  //     brand: "Cardo",
+  //     location: "Semarang, Indonesia",
+  //     image: mouse,
+  //     price: "₹ 200",
+  //     unit: "Stripe",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Vitamin-C Casual",
+  //     brand: "Cardo",
+  //     location: "Semarang, Indonesia",
+  //     image: bowl,
+  //     price: "₹ 200",
+  //     unit: "Stripe",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Vitamin-C Casual",
+  //     brand: "Cardo",
+  //     location: "Semarang, Indonesia",
+  //     image: building,
+  //     price: "₹ 200",
+  //     unit: "Stripe",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Vitamin-C Casual",
+  //     brand: "Cardo",
+  //     location: "Semarang, Indonesia",
+  //     image: mattchine,
+  //     price: "₹ 200",
+  //     unit: "Stripe",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Vitamin-C Casual",
+  //     brand: "Cardo",
+  //     location: "Semarang, Indonesia",
+  //     image: helicopter,
+  //     price: "₹ 200",
+  //     unit: "Stripe",
+  //   },
+  // ];
+
+  const [products, setproducts] = useState([]);
+
+  const getProducts = async () => {
+    try {
+      const userDetail = JSON.parse(localStorage.getItem("userDetail"));
+      const userId = userDetail?.user?._id;
+
+      const Res = await axiosMain.get("/getProducts");
+      console.log(Res, "getprooo");
+      setproducts(Res);
+      if (Res?.success) {
+
+      } else {
+      }
+
+    } catch (err) {
+      console.error("Error creating product:", err);
+    }
+  }
+  const getPosts = async () => {
+    try {
+      const userDetail = JSON.parse(localStorage.getItem("userDetail"));
+      const userId = userDetail?.user?._id;
+
+      const Res = await axiosMain.get(`${userId}/getPosts`);
+      console.log(Res, "getprooo");
+      setPostData(Res);
+      // if (Res?.success) {
+
+      // } else {
+      // }
+
+    } catch (err) {
+      console.error("Error creating product:", err);
+    }
+  }
+  const clickHeartLike = async (postId) => {
+    try {
+      const userDetail = JSON.parse(localStorage.getItem("userDetail"));
+      const userId = userDetail?.user?._id;
+
+      const Res = await axiosMain.post(`/${postId}/like`,
+        { "userId": userId });
+
+      if (Res?.userId) {
+        alert("Liked Successfully !!");
+      } else {
+      }
+
+    } catch (err) {
+      console.error("Error creating product:", err);
+    }
+  }
+
+  const ConnectPost = async (postId) => {
+    try {
+      const userDetail = JSON.parse(localStorage.getItem("userDetail"));
+      const userId = userDetail?.user?._id;
+
+      const Res = await axiosMain.post(`/${postId}/connect`,
+        { "userId": userId });
+
+      if (Res?.userId) {
+        alert("connect Successfully !!");
+      } else {
+      }
+
+    } catch (err) {
+      console.error("Error creating product:", err);
+    }
+  }
+  useEffect(() => {
+    getProducts();
+    getPosts();
+  }, []);
+
   const queryproducts = [
     {
       imageSrc: medicine,
@@ -933,7 +1013,7 @@ function LendingPage() {
             Trending Categories
           </h2>
           <div className="row">
-            {categoryCards.map((card) => (
+            {postData?.map((card) => (
               <div key={card.id} className="col-12 col-sm-6 col-lg-3 mb-4">
                 <div className="card border-0" style={{ borderRadius: "18px" }}>
                   {" "}
@@ -948,8 +1028,8 @@ function LendingPage() {
                       <Box position="relative" width={40} height={40}>
                         {/* First Avatar */}
                         <Avatar
-                          alt={card.username}
-                          src={card.userImage}
+                          alt={card.description}
+                          src={user}
                           sx={{
                             width: 35,
                             height: 35,
@@ -961,8 +1041,8 @@ function LendingPage() {
                         />
                         {/* Second Avatar Overlapping */}
                         <Avatar
-                          alt={card.username}
-                          src={card.userImage}
+                          alt={card.description}
+                          src={user}
                           sx={{
                             width: 30,
                             height: 30,
@@ -999,11 +1079,20 @@ function LendingPage() {
                     </button>
                   </div>
                   {/* Image */}
-                  <img
-                    src={card.mainImage}
-                    alt={card.imageAlt}
-                    className="card-img-top"
-                  />
+
+                  <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                    <div style={{ width: '66%' }}>
+                      <img
+                        src={card.image || noImage}
+                        alt={card._id}
+                        style={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+                  </div>
+
+
+
+
                   {/* Card Body */}
                   <div className="card-body">
                     <div className="d-flex align-items-center mb-2">
@@ -1021,8 +1110,9 @@ function LendingPage() {
                           size={18}
                           className="text-dark"
                           style={{ marginTop: "2px" }}
+                          onClick={() => clickHeartLike(card?._id)}
                         />
-                        <div style={{ paddingLeft: "3px" }}>5.44k</div>
+                        <div onClick={() => clickHeartLike(card?._id)} style={{ paddingLeft: "3px" }}>5.44k</div>
                       </button>
                       <div style={{ marginLeft: "auto" }}>
                         <button className="btn  save-btn btn-sm">
@@ -1045,6 +1135,7 @@ function LendingPage() {
                             fontFamily: "Poppins,sans-serif",
                             fontSize: "14px",
                           }}
+                          onClick={() => ConnectPost(card?._id)}
                         >
                           Connect
                         </button>
@@ -1073,7 +1164,7 @@ function LendingPage() {
           </h2>
           <div className="row g-3">
             {products.map((product) => (
-              <div key={product.id} className="col-6 col-md-4 col-lg-2 d-flex">
+              <div key={product._id} className="col-6 col-md-4 col-lg-2 d-flex">
                 <div className="card w-100 d-flex flex-column shadow-sm p-2">
                   {/* User Info - Profile Image, Username & Location */}
                   <div className="d-flex align-items-center p-2">
@@ -1099,7 +1190,7 @@ function LendingPage() {
                           fontWeight: "700",
                         }}
                       >
-                        {product.brand}
+                        {product.name}
                       </h6>
                       <p
                         className="user-location mb-0"
@@ -1110,14 +1201,14 @@ function LendingPage() {
                           color: "#878D98",
                         }}
                       >
-                        {product.location}
+                        <p>{`${product.city}, ${product.state}, ${product.areaCode}`}</p>
                       </p>
                     </div>
                   </div>
 
                   {/* Product Image */}
                   <img
-                    src={product.image}
+                    src={product.image || noImage}
                     alt={product.name}
                     className="card-img-top p-2"
                     style={{ objectFit: "cover", aspectRatio: "1 / 1" }}
@@ -1148,8 +1239,7 @@ function LendingPage() {
                         color: "#878D98",
                       }}
                     >
-                      Vitamin E contains vitamin E that acts as an antioxidant.
-                      It stops the formation
+                      {product.description}
                     </p>
                   </div>
 
@@ -1172,7 +1262,7 @@ function LendingPage() {
                           fontWeight: "700",
                         }}
                       >
-                        {product.unit}
+                        {product.label}
                       </span>
                     </div>
                   </div>
@@ -1218,7 +1308,7 @@ function LendingPage() {
 
                   {/* Product Image */}
                   <img
-                    src={product.image}
+                    src={product.image || noImage}
                     alt={product.name}
                     className="card-img-top p-2"
                     style={{ objectFit: "cover", aspectRatio: "1 / 1" }}
@@ -1249,8 +1339,7 @@ function LendingPage() {
                         color: "#878D98",
                       }}
                     >
-                      High-quality vitamin C supplement for better immunity and
-                      health.
+                      {product.description}
                     </p>
                   </div>
 
@@ -1560,7 +1649,7 @@ function LendingPage() {
             Trending Categories
           </h2>
           <div className="row">
-            {categoryCards.map((card) => (
+            {postData?.map((card) => (
               <div key={card.id} className="col-12 col-sm-6 col-lg-3 mb-4">
                 <div className="card border-0" style={{ borderRadius: "18px" }}>
                   {" "}
@@ -1572,8 +1661,8 @@ function LendingPage() {
                   >
                     <div className="d-flex align-items-center">
                       <img
-                        src={card.userImage}
-                        alt={card.username}
+                        src={user}
+                        alt={card.description}
                         className="rounded-circle me-2"
                         width="30"
                         height="30"
@@ -1589,8 +1678,8 @@ function LendingPage() {
                   </div>
                   {/* Image */}
                   <img
-                    src={card.mainImage}
-                    alt={card.imageAlt}
+                    src={card.image || noImage}
+                    alt={card.description}
                     className="card-img-top"
                   />
                   {/* Card Body */}
@@ -1610,6 +1699,7 @@ function LendingPage() {
                           size={18}
                           className="text-dark"
                           style={{ marginTop: "2px" }}
+                          onClick={() => clickHeartLike(card?._id)}
                         />
                         <div style={{ paddingLeft: "3px" }}>5.44k</div>
                       </button>
@@ -1634,6 +1724,7 @@ function LendingPage() {
                             fontFamily: "Poppins,sans-serif",
                             fontSize: "14px",
                           }}
+                          onClick={() => ConnectPost(card?._id)}
                         >
                           Connect
                         </button>

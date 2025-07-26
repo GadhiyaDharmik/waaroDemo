@@ -524,17 +524,17 @@ function UploadCard({ label, setProductToggle }) {
 }
 
 const UploadPosts = ({ handleClose, modalName, setModalName }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImagePost, setSelectedImagePost] = useState(null);
   const [isEnabled, setIsEnabled] = useState(false);
   const [post, setPost] = useState({
-    category: "",
-    subCategory: "",
-    name: "",
-    price: "",
-    label: "",
-    city: "",
-    areaCode: "",
-    state: "",
+    // category: "",
+    // subCategory: "",
+    // name: "",
+    // price: "",
+    // label: "",
+    // city: "",
+    // areaCode: "",
+    // state: "",
     description: "",
     keywords: "",
   });
@@ -570,16 +570,68 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
   const postImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
+      setSelectedImagePost(file);
     }
   };
   const posthandleChange = (e) => {
     const { name, value } = e.target;
     setPost((prev) => ({ ...prev, [name]: value }));
   };
+
+  const posthandleSubmit = async (e) => {
+    e.preventDefault();
+    // axiosMain.post("api/create-post",)
+
+    try {
+      const userDetail = JSON.parse(localStorage.getItem("userDetail"));
+      const userId = userDetail?.user?._id;
+
+      let imageUrl = "";
+
+      if (!selectedImagePost) {
+        console.warn("No image selected. Product creation aborted.");
+        return;
+      }
+
+      // 1️⃣ Upload image first if selectedImage is a File
+      if (selectedImagePost && selectedImagePost instanceof File) {
+        const formData = new FormData();
+        formData.append("file", selectedImagePost);
+
+        const uploadRes = await axiosMain.post("/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        console.log(uploadRes, "uploadRes");
+
+        if (uploadRes?.success) {
+          imageUrl = uploadRes?.fileUrl;
+        } else {
+          throw new Error("Image upload failed");
+        }
+      }
+      debugger;
+      // 2️⃣ Then create product
+      const payload = {
+        ...post,
+        // price: Number(product.price),
+        userId: userId,
+        image: imageUrl,
+      };
+      console.log(payload, "payload");
+
+
+      const res = await axiosMain.post("/create-post", payload);
+      console.log("Product created:", res.data);
+
+      // Optional: success message or reset form here
+    } catch (err) {
+      console.error("Error creating product:", err);
+    }
+  };
+
   return (
     <div className="max-w-sm mx-auto bg-white p-4 rounded-md shadow font-poppins">
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={posthandleSubmit}>
         {modalName === "" && (
           <>
             {" "}
@@ -596,9 +648,9 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
                 <div className="flex items-center gap-2">
                   {/* Image Preview */}
                   <div className="w-10 h-10 overflow-hidden rounded-lg border border-gray-300">
-                    {selectedImage ? (
+                    {selectedImagePost ? (
                       <img
-                        src={selectedImage}
+                        src={typeof selectedImage === "string" ? selectedImagePost : URL.createObjectURL(selectedImagePost)}
                         alt="preview"
                         className="w-full h-full object-cover"
                       />
@@ -655,7 +707,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
             </div>
             {/* Submit */}
             <button
-              type="button"
+              type="submit"
               className="w-full text-black py-2 rounded-md font-medium  transition"
               style={{ backgroundColor: "#88E5B4" }}
             >
@@ -670,7 +722,8 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
             </button> */}
           </>
         )}
-
+      </form>
+      <form>
         {modalName === "Modal1" && (
           <>
             <div className="bg-white rounded-lg p-6">
@@ -1202,7 +1255,7 @@ const Product = ({ handleClose }) => {
       console.log(payload, "payload");
 
 
-      const res = await axiosMain.post("/api/create-post", payload);
+      const res = await axiosMain.post("/create-product", payload);
       console.log("Product created:", res.data);
 
       // Optional: success message or reset form here
