@@ -1,12 +1,12 @@
 // src/components/Dashboard.jsx
-import React from 'react'
-import { Heart, Eye, Bookmark, Send } from 'lucide-react'
+import React from "react";
+import { Heart, Eye, Bookmark, Send } from "lucide-react";
 import {
   CircularProgressbar,
   CircularProgressbarWithChildren,
   buildStyles,
-} from 'react-circular-progressbar'
-import 'react-circular-progressbar/dist/styles.css';
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -15,63 +15,81 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-} from 'recharts';
-import ana1 from '../../asset/Analytics/Ana1.png';
-import ana2 from '../../asset/Analytics/Ana2.png';
+} from "recharts";
+import ana1 from "../../asset/Analytics/Ana1.png";
+import ana2 from "../../asset/Analytics/Ana2.png";
+import ScoreViewer from "./ScoreViewer";
 
 const stats = [
-  { title: 'Total Lead', value: 135 },
-  { title: 'Total Inquiry', value: 135 },
-  { title: 'Total Email', value: 135 },
-  { title: 'Total Spread', value: 135 },
-  { title: 'Total Referral', value: 135 },
-  { title: 'Total Connect', value: 135 },
-]
+  { title: "Total Lead", value: 135 },
+  { title: "Total Inquiry", value: 135 },
+  { title: "Total Email", value: 135 },
+  { title: "Total Spread", value: 135 },
+  { title: "Total Referral", value: 135 },
+  { title: "Total Connect", value: 135 },
+];
 
 const data = [
-  { month: 'Jan', value: 20 },
-  { month: 'Feb', value: 22 },
-  { month: 'Mar', value: 18 },
-  { month: 'Apr', value: 35 },
-  { month: 'May', value: 30 },
-  { month: 'Jun', value: 15 },
-  { month: 'Jul', value: 55 },
-  { month: 'Aug', value: 50 },
-  { month: 'Sep', value: 60 },
-  { month: 'Oct', value: 95 },
-  { month: 'Nov', value: 100 },
-  { month: 'Dec', value: 102 },
-]
+  { month: "Jan", value: 20 },
+  { month: "Feb", value: 22 },
+  { month: "Mar", value: 18 },
+  { month: "Apr", value: 35 },
+  { month: "May", value: 30 },
+  { month: "Jun", value: 15 },
+  { month: "Jul", value: 55 },
+  { month: "Aug", value: 50 },
+  { month: "Sep", value: 60 },
+  { month: "Oct", value: 95 },
+  { month: "Nov", value: 100 },
+  { month: "Dec", value: 102 },
+];
 
 const mailCampaigns = [
-  'Swimwear',
-  'Hoodies & Sweatshirts',
-  'Shorts',
-  'Jackets',
-  'Pants',
-  'Track Suits',
-]
+  "Swimwear",
+  "Hoodies & Sweatshirts",
+  "Shorts",
+  "Jackets",
+  "Pants",
+  "Track Suits",
+];
 
 const overviewData = [
-  { label: 'Total sent mail', count: '846 of 718', percent: 85, color: 'bg-orange-500' },
-  { label: 'Delivery mail', count: '215 of 661', percent: 50, color: 'bg-blue-400' },
-  { label: 'Open mail', count: '846 of 804', percent: 75, color: 'bg-sky-400' },
-  { label: 'Click through mail', count: '458 of 901', percent: 40, color: 'bg-pink-500' },
-  { label: 'Green', count: '215 of 661', percent: 65, color: 'bg-green-500' },
-]
+  {
+    label: "Total sent mail",
+    count: "846 of 718",
+    percent: 85,
+    color: "bg-orange-500",
+  },
+  {
+    label: "Delivery mail",
+    count: "215 of 661",
+    percent: 50,
+    color: "bg-blue-400",
+  },
+  { label: "Open mail", count: "846 of 804", percent: 75, color: "bg-sky-400" },
+  {
+    label: "Click through mail",
+    count: "458 of 901",
+    percent: 40,
+    color: "bg-pink-500",
+  },
+  { label: "Green", count: "215 of 661", percent: 65, color: "bg-green-500" },
+];
 
 export default function Analytics() {
-  const profileScore = 799
+  const profileScore = 799;
 
   return (
-    <div className="container mx-auto p-6 grid grid-cols-12 gap-6">
+    <div className="dashboard grid grid-cols-12 gap-6">
       {/* ─── Left Column ─── */}
       <div className="col-span-12 md:col-span-3 space-y-6">
         {/* Profile Score */}
         <div className="bg-white rounded-2xl shadow p-6 flex flex-col items-center">
           {/* define the gradient stops */}
           <h2 className="mt-4 font-semibold">Profile score</h2>
-          <svg style={{ height: 0 }}>
+          <ScoreViewer score={75} />
+
+          {/* <svg style={{ height: 0 }}>
             <defs>
               <linearGradient id="gaugeGradient">
                 <stop offset="0%" stopColor="#F87171" />
@@ -79,9 +97,9 @@ export default function Analytics() {
                 <stop offset="100%" stopColor="#34D399" />
               </linearGradient>
             </defs>
-          </svg>
+          </svg> */}
 
-          <div style={{ width: 160 }}>
+          {/* <div style={{ width: 160 }}>
             <CircularProgressbar
               value={profileScore}
               maxValue={1000}
@@ -90,15 +108,15 @@ export default function Analytics() {
               // turn into a 3/4 circle (i.e. 270° arc)
               circleRatio={0.75}
               styles={buildStyles({
-                rotation: 1 / 2 + 1 / 8,         // start at −135°
-                pathColor: 'url(#gaugeGradient)',// use our gradient
-                trailColor: '#E5E7EB',           // light grey background arc
-                strokeLinecap: 'butt',           // squared-off ends
-                textSize: '1.5rem',
-                textColor: '#1F2937',
+                rotation: 1 / 2 + 1 / 8, // start at −135°
+                pathColor: "url(#gaugeGradient)", // use our gradient
+                trailColor: "#E5E7EB", // light grey background arc
+                strokeLinecap: "butt", // squared-off ends
+                textSize: "1.5rem",
+                textColor: "#1F2937",
               })}
-            />
-          </div>
+            /> 
+          </div> */}
         </div>
 
         {/* Six Yellow Stat Cards */}
@@ -116,14 +134,16 @@ export default function Analytics() {
             </div>
           ))}
         </div>
-
       </div>
 
       {/* ─── Middle Column ─── */}
-      <div className="col-span-12 md:col-span-5 space-y-6">
+      <div
+        className="rounded-2xl bg-white shadow col-span-12 md:col-span-5 space-y-6 p-6"
+        style={{ borderBottom: "2px solid #949494" }}
+      >
         {/* Mail Campaign List */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h3 className="font-semibold mb-14">Mail campaign list</h3>
+        <div style={{ borderBottom: "2px solid #949494" }}>
+          <h3 className="font-semibold">Mail campaign list</h3>
           <ol className="list-decimal list-inside space-y-1 text-blue-600 leading-[2.5rem] text-[#28B5E1]">
             {mailCampaigns.map((m) => (
               <li key={m}>{m}</li>
@@ -132,12 +152,12 @@ export default function Analytics() {
         </div>
 
         {/* Purple Area Chart Placeholder */}
-        <div className="bg-white rounded-2xl shadow p-6 h-64">
+        <div className="h-64" style={{ borderBottom: "2px solid #949494" }}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={data}
               // add horizontal margin so end ticks aren't cut off
-              margin={{ top: 10, right: 20, left: 20, bottom: 0 }}
+              margin={{ top: 40, right: 0, left: 0, bottom: 40 }}
             >
               <defs>
                 <linearGradient id="gradValue" x1="0" y1="0" x2="0" y2="1">
@@ -146,7 +166,11 @@ export default function Analytics() {
                 </linearGradient>
               </defs>
 
-              <CartesianGrid vertical={false} strokeDasharray="3 3" opacity={0.1} />
+              <CartesianGrid
+                vertical={false}
+                strokeDasharray="3 3"
+                opacity={0.1}
+              />
 
               <XAxis
                 dataKey="month"
@@ -156,21 +180,21 @@ export default function Analytics() {
                 interval={0}
                 // padding so Jan & Dec aren’t flush against edges
                 padding={{ left: 10, right: 10 }}
-                style={{ fontSize: '0.75rem', fill: '#6B7280' }}
+                style={{ fontSize: "0.75rem", fill: "#6B7280" }}
               />
 
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                style={{ fontSize: '0.75rem', fill: '#6B7280' }}
-                domain={[10, 'dataMax + 5']}
+                style={{ fontSize: "0.75rem", fill: "#6B7280" }}
+                domain={[10, "dataMax + 5"]}
                 tickCount={100}
               />
 
               <Tooltip
-                contentStyle={{ fontSize: '0.9rem' }}
-                formatter={(v) => [v, '']}
-                labelFormatter={() => ''}
+                contentStyle={{ fontSize: "0.9rem" }}
+                formatter={(v) => [v, ""]}
+                labelFormatter={() => ""}
               />
 
               <Area
@@ -186,7 +210,7 @@ export default function Analytics() {
         </div>
 
         {/* Small Overview */}
-        <div className="bg-white rounded-2xl shadow p-6">
+        <div style={{ borderBottom: "2px solid #949494" }}>
           <h3 className="font-semibold mb-4">Overview</h3>
           <div className="space-y-4">
             {overviewData.map((o) => (
@@ -211,12 +235,11 @@ export default function Analytics() {
       <div className="col-span-12 md:col-span-4 space-y-6">
         {/* Icon Row */}
         <div className="bg-white rounded-full shadow-md px-6 py-3 flex justify-center items-center gap-[60px]">
-          <Heart className="w-8 h-8 text-[#77BA9B] fill-[#77BA9B] cursor-pointer" />
+          <Heart className="w-8 h-8 text-[#ffca28] fill-[#ffca28] cursor-pointer" />
           <Eye className="w-8 h-8 text-black cursor-pointer" />
           <Bookmark className="w-8 h-8 text-black cursor-pointer" />
           <Send className="w-8 h-8 text-black cursor-pointer" />
         </div>
-
 
         {/* Two Image Cards */}
         <div className="bg-white shadow flex gap-6 px-4 py-6 rounded-xl">
@@ -245,7 +268,6 @@ export default function Analytics() {
           </div>
         </div>
 
-
         {/* Large Overview */}
         <div className="bg-white rounded-2xl shadow p-6">
           <h3 className="font-semibold mb-4">Overview</h3>
@@ -268,5 +290,5 @@ export default function Analytics() {
         </div>
       </div>
     </div>
-  )
+  );
 }

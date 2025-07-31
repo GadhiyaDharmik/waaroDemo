@@ -122,7 +122,7 @@ function PrivateRouter() {
         <div
           className={showSidebar ? "main-content-dashboard" : "main-content"}
         >
-          <div className="content-container p-4">
+          <div className="content-container px-4">
             <Outlet />
           </div>
         </div>

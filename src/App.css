@@ -1,6 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 .button-bg {
@@ -56,6 +57,19 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0px;
+  overflow-y: scroll;
+  height: 85vh; /* subtract 100px */
+}
+.main-content {
+  overflow-y: scroll;
+  height: 85vh; /* subtract 100px */
+}
+
+.main-content::-webkit-scrollbar {
+  display: none;
+}
+.main-content-dashboard::-webkit-scrollbar {
+  display: none;
 }
 
 .main-content {
