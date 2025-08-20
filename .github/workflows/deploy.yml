@@ -1,33 +1,25 @@
-name: Deploy to Netlify
+name: Netlify Deploy
 
 on:
   push:
     branches:
-      - main   # or "master" depending on your repo
+      - main   # or your default branch
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'   # match your project version
-
-      - name: Install dependencies
-        run: npm install -f
-
-      - name: Build project
-        run: npm run build
+      - name: Install dependencies (force)
+        run: npm i -f
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2
         with:
-          publish-dir: ./build
+          publish-dir: .   # send repo source, Netlify will build
           production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deployed via GitHub Actions 🚀"
