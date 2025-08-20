@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./dashboard.css";
+import "./Dashboard.css";
 
 import { FiSearch } from "react-icons/fi";
 import { FaPhoneAlt, FaWhatsapp, FaEye } from "react-icons/fa";
