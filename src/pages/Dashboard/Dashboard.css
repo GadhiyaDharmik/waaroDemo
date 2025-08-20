@@ -1,7 +1,7 @@
 /* overall page padding */
-/* .dashboard {
-  padding: 2rem;
-} */
+.dashboard {
+  padding: 0 2rem;
+}
 
 /* header “Today” */
 .dashboard-header h1 {

@@ -361,18 +361,15 @@ const ProductListing = () => {
     // </div>
     <>
       <div className="container mx-auto  grid grid-cols-12 gap-6">
-        <div className="col-span-12 md:col-span-3">
-          <div className="w-full">
-            {producttoggle === false ? (
-              <UploadCard
-                label="Upload Products"
-                setProductToggle={setProductToggle}
-              />
-            ) : (
-              <Product handleClose={setProductToggle} />
-            )}
-          </div>
-        </div>
+         <div className="col-span-12 md:col-span-3">
+      <div className="w-full">
+        {!producttoggle ? (
+          <UploadCard label="Upload Products" setProductToggle={setProductToggle} />
+        ) : (
+          <Product setProductToggle={setProductToggle} />
+        )}
+      </div>
+    </div>
 
         <div className="col-span-12 md:col-span-3">
           <div className="w-full">
@@ -510,14 +507,13 @@ const ProductListing = () => {
 };
 function UploadCard({ label, setProductToggle }) {
   return (
-    <div
+     <div
       onClick={() => setProductToggle(true)}
       className="bg-white w-full h-60 rounded-xl border flex flex-col justify-center items-center shadow hover:shadow-md cursor-pointer transition"
     >
       <div className="flex items-center justify-center w-[60px] h-[60px] rounded-lg bg-yellow-400 border border-black">
         <span className="text-black text-4xl font-medium leading-none">+</span>
       </div>
-
       <p className="mt-3 font-medium text-gray-700">{label}</p>
     </div>
   );
@@ -1129,7 +1125,7 @@ const UploadPosts = ({ handleClose, modalName, setModalName }) => {
   );
 };
 
-const Product = ({ handleClose }) => {
+const Product = ({ setProductToggle }) => {
   const [product, setProduct] = useState({
     category: "",
     subCategory: "",
@@ -1266,8 +1262,9 @@ const Product = ({ handleClose }) => {
       console.log(payload, "payload");
 
       const res = await axiosMain.post("/create-product", payload);
-      handleClose();
+      // debugger;
       console.log("Product created:", res.data);
+      setProductToggle(false);
 
       // Optional: success message or reset form here
     } catch (err) {

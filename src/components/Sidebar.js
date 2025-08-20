@@ -136,8 +136,6 @@ const Sidebar = () => {
             padding: "6px",
           },
         }}
-          className="shadow"
-
       >
         <div
           style={{
