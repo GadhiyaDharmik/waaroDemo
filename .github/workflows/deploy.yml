@@ -1,39 +1,37 @@
-name: Deploy to EC2
+name: Deploy to Netlify
 
 on:
   push:
     branches:
-      - main
+      - main   # or "master" depending on your repo
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H 51.20.108.54 >> ~/.ssh/known_hosts
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'   # match your project version
 
-    - name: SSH into EC2 and deploy
-      run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@51.20.108.54 << 'EOF'
-          cd /home/ubuntu/Waaro_Frontend || exit
+      - name: Install dependencies
+        run: npm install -f
 
-          # Reset local changes to avoid merge conflicts
-          git reset --hard HEAD
-          git clean -fd
+      - name: Build project
+        run: npm run build
 
-          # Pull latest code
-          git pull origin main
-
-          # (Optional) Run build or restart service
-          # npm install
-          # npm run build
-          # pm2 restart all
-        EOF
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2
+        with:
+          publish-dir: ./build
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deployed via GitHub Actions 🚀"
+          enable-commit-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
